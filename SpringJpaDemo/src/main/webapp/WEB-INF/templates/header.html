@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+</head>
+<body>
+	<div th:fragment="header">
+		<div class="row">
+			<h3 class="text-center">Account List | Bootstrap Paging</h3>
+
+		</div>
+
+		<div class="row">
+			<div class="col-sm-2">
+				<div class="form-group">
+
+					<span th:text="|Total: ${numCountRows} records.|"> </span>
+					<p />
+
+					<label>Show: <select id="maxRow" onchange="getListOfRow()">
+							<option th:each="i : ${#numbers.sequence(5, 20,5)}"
+								th:value="${i}" th:text="${i}" th:selected="${ i==maxRow} ">Options</option>
+					</select> rows.
+					</label>
+				</div>
+			</div>
+			<div class="col-sm-8 text-center">
+				<!-- Button << & < -->
+				<!-- <ul class="pagination pagination-sm " th:unless="${numOfPage} == 1">
+					<li><a href="#"
+						th:href="@{/getJPA(record=1,maxRows=${maxRow})}"> &lt;&lt; </a></li>
+				</ul>
+				<ul class="pagination pagination-sm " th:unless="${numOfPage} == 1">
+					<li><a href="#"
+						th:href="@{/getJPA(record=${numOfPage - 1},maxRows=${maxRow})}">
+							&lt; </a></li>
+				</ul> -->
+
+				<!-- Button pagination -->
+				<ul class="pagination pagination-sm "
+					th:each="i : ${#numbers.sequence(1, numPages)}">
+
+
+					<li th:if="${i} == ${numOfPage} " class="active"><a href="#"
+						th:text="${i}"></a></li>
+					<li th:unless="${i} == ${numOfPage}"><a href="#"
+						th:href="@{/getJPA(record=${i},maxRows=${maxRow})}" th:text="${i}"></a></li>
+				</ul>
+
+				<!-- Button > & >> -->
+				<!-- <ul class="pagination pagination-sm "
+					th:if="${numOfPage} != ${numPages}">
+					<li><a href="#"
+						th:href="@{/getJPA(record=${numOfPage + 1},maxRows=${maxRow})}">
+							&gt; </a></li>
+				</ul>
+				<ul class="pagination pagination-sm "
+					th:if="${numOfPage} != ${numPages}">
+					<li><a href="#"
+						th:href="@{/getJPA(record=${numPages},maxRows=${maxRow})}">
+							&gt;&gt; </a></li>
+				</ul> -->
+			</div>
+			<div class="col-sm-2">
+				<p class="text-right">
+					<a href="#" th:href="@{/getJPA(record=${numPages})}"
+						class="btn btn-info">Add new Account</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

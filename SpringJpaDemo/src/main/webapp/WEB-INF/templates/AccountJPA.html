@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Spring MVC + Thymeleaf Example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+	th:href="@{resources/css/bootstrap.css}" />
+<link rel="stylesheet" type="text/css"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"
+	th:href="@{resources/css/jquery-ui.css}" />
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
+	th:src="@{/resources/jquery/jquery.min.js}"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"
+	th:src="@{/resources/jquery/jquery-ui.js}"></script>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"
+	th:src="@{/resources/jquery/bootstrap.min.js}"></script>
+<script>
+	function doAjaxPostDelete(id) {
+		var idNo = id;
+		var $dialog = $('<div></div>').html('Are you sure delete ID = ' + idNo)
+				.dialog({
+					title : "Delete Account ?",
+					height : 200,
+					width : 350,
+					modal : true,
+					buttons : [ {
+						text : "No",
+						icons : {
+							primary : "ui-icon-heart"
+						},
+						click : function() {
+							$(this).dialog("close");
+
+						}
+					}, {
+						text : "Yes",
+						icons : {
+							primary : "ui-icon-heart"
+						},
+						click : function() {
+							$.ajax({
+								type : "POST",
+								url : "delete",
+								data : "id=" + idNo,
+								success : function(response) {
+									alert(response);
+								}
+							});
+							$(this).dialog("close");
+							document.location.reload(false);
+						}
+					} ]
+				});
+	}
+	function getListOfRow() {
+		var e = document.getElementById("maxRow");
+		var numOfSelect = e.options[e.selectedIndex].value;
+		window.location
+				.replace("http://localhost:8080/SpringJpaDemo/getJPA?maxRows="
+						+ numOfSelect);
+	}
+</script>
+</head>
+<body>
+	<div class="container">
+	<div th:replace="header :: header"></div>
+	<div th:replace="accountTable :: accountTable"></div>
+	<div th:replace="accountModel :: accountModel"></div>	
+		
+	</div>
+
+</body>
+
+</html>

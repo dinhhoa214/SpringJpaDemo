@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+</head>
+<body>
+
+	<div class="row" th:fragment="accountModel">
+		<div class="col-sm-6">
+			<form
+				th:action="@{/saveAccount(record=${numOfPage},maxRows=${maxRow})}"
+				th:object="${account}" method="post">
+				<table class="table table-condensed">
+					<tr>
+						<td>ID:</td>
+						<td><input type="text" th:field="*{id}" readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<td>Name:</td>
+						<td><input type="text" th:field="*{name}" /></td>
+					</tr>
+					<tr>
+						<td>Modifer Time:</td>
+						<td><input type="text" th:field="*{time}"
+							placeholder="YYYY/MM/DD" /></td>
+					</tr>
+					<tr>
+						<td>Status:</td>
+						<td><select th:field="*{status}">
+								<option value="">Select Status</option>
+								<option value="Dang su dung">Dang su dung</option>
+								<option value="Tam khoa">Tam khoa</option>
+								<option value="Het han">Het han</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td>Public:</td>
+						<td><input type="radio" th:field="*{isPublic}"
+							th:value="true" /> True <input type="radio"
+							th:field="*{isPublic}" th:value="false" /> False</td>
+					</tr>
+					<tr>
+						<td><input type="submit" value="Save" class="btn btn-success" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div class="col-sm-6">
+			<div class="alert alert-success">
+				<strong>Console:</strong> message.
+
+
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
