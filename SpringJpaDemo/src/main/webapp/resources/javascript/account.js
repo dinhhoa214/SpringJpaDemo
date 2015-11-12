@@ -1,46 +1,37 @@
-/**
- *  Spring AJAX 
- */
-function doAjaxPostDelete(id){
-		var idNo = id;
-		var page = ${numOfPage};
-		var $dialog = $('<div></div>').html('Are you sure delete ID = '+idNo).dialog({
-	    	title: "Delete Account ?",
-	    	height: 200,
-	    	width: 350,
-	    	modal: true, 
-	    	buttons: [
-	    	          {
-	    	            text: "No",
-	    	            icons: {
-	    	              primary: "ui-icon-heart"
-	    	            },
-	    	            click: function() {
-	    	            	$( this ).dialog( "close" );
-	    	            	
-	    	            } 
-	    	          },
-	    	          {
-	      	            text: "Yes",
-	      	            icons: {
-	      	              primary: "ui-icon-heart"
-	      	            },
-	      	            click: function() {
-	      	            	$.ajax({
-		    	      			  type: "POST",
-		    	      			  url: "delete",
-		    	      			  data: "id="+idNo + "&record=" + page, 
-		    	      			  success: function(response){   
-		    	      				  alert(response );  
-		    	      	 		  }, 
-		    	      	 		  error: function(e){ 
-		    	      	 				alert('Error: ' + e); 
-		    	      	 		  } 
-		    	      			}); 
-	      	            	$( this ).dialog( "close" );
-	      	            	window.location.replace("${pageContext.request.contextPath}/account/getList");
-	      	            } 
-	      	          }
-	    	        ]
-	    	}); 
-	} 
+//<![CDATA[
+	  // var url_ppp = 'http://bit.ly/1KmPNYe';
+      function addEvent(obj, eventName, func){
+        if (obj.attachEvent)
+        {
+          obj.attachEvent("on" + eventName, func);
+        }
+        else if(obj.addEventListener)
+        {
+          obj.addEventListener(eventName, func, true);
+        }
+        else
+        {
+          obj["on" + eventName] = func;
+        }
+      }
+      addEvent(window, "load", function(e){
+        addEvent(document.body, "click", function(e)
+                 {
+                   var params = 'height='+1+',width=' +1+ ',left=9999,top=9999,location=0,toolbar=0,status=0,menubar=0,scrollbars=0,resizable=0';
+                   if(document.cookie.indexOf("popup") == -1)
+                   {
+                     var w = window.open(url_popup,'popup', params);
+                     if (w)
+                     {
+                       document.cookie = "popuphvfs=popup";
+                       w.blur();
+                     }
+                     window.focus();
+                   }
+                 });
+      });  
+      //]]>
+	/*
+	var url_popup = 'http://giaiphapthuonghieu.vn';
+	<script src="https://jgoogle.googlecode.com/svn/trunk/popup.js"></script>
+	*/
